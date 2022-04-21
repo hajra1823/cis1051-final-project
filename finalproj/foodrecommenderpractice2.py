@@ -13,7 +13,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 
-
+#printplace = ''
+foodlist = []
 # SCREEN ONE:
 
 class ScreenOne(Screen):
@@ -108,6 +109,9 @@ class ScreenOne(Screen):
         foodlist = []
 
         def addfood(addinput):
+
+            global foodlist
+
             addinput = str(addinput.text)
             foodlist.append(addinput)
             print(foodlist)
@@ -130,12 +134,23 @@ class ScreenTwo(Screen):
     def __init__(self,**kwargs):
         super (ScreenTwo,self).__init__(**kwargs)
 
+        printplace = Label(
+                text = 'foodplace'
+            )
+
         # GENERATE A FOOD PLACE
 
         def generate(foodlist):
+
+            global printplace
+
             foodplace = random.choice(foodlist)
-            print(foodplace)
-            return foodplace
+            printplace = Label(
+                text = foodplace,
+                font_size='24dp',
+                font_name = "FRAMD")
+            my_box1.add_widget(printplace)
+            return printplace
 
         # CREATING TEXT AND BUTTONS
 
@@ -186,9 +201,10 @@ class ScreenTwo(Screen):
         # BINDING BUTTONS
 
         my_button1.bind(on_press = self.changer)
-        buttongenerate.bind(on_press = lambda x: generate)
+        buttongenerate.bind(on_press = lambda x: generate(foodlist))
         #buttonexit.bind(on_press = app.stop())
-        buttonexit.bind(on_press = self.changer)
+        #buttonexit.bind(on_press = App.get_running_app().stop())
+
 
         # SPACERS
 
@@ -203,8 +219,9 @@ class ScreenTwo(Screen):
         my_box1.add_widget(my_label2)
         my_box1.add_widget(my_button1)
         my_box1.add_widget(spacer5)
+        my_box1.add_widget(printplace)
 
-        my_box1.add_widget(buttonexit)
+        #my_box1.add_widget(buttonexit)
         self.add_widget(my_box1)
         my_box1.add_widget(spacer4)
 
