@@ -13,7 +13,6 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy.uix.image import Image
 
-#printplace = ''
 foodlist = []
 # SCREEN ONE:
 
@@ -106,8 +105,6 @@ class ScreenOne(Screen):
 
         buttonswitch.bind(on_press = self.changer)
 
-        foodlist = []
-
         def addfood(addinput):
 
             global foodlist
@@ -134,8 +131,11 @@ class ScreenTwo(Screen):
     def __init__(self,**kwargs):
         super (ScreenTwo,self).__init__(**kwargs)
 
-        printplace = Label(
-                text = 'foodplace'
+        self.printplace = Label(
+            text = 'click to generate!',
+            font_size='24dp',
+            font_name = "FRAMD",
+            halign = 'center'
             )
 
         # GENERATE A FOOD PLACE
@@ -145,13 +145,9 @@ class ScreenTwo(Screen):
             global printplace
 
             foodplace = random.choice(foodlist)
-            printplace = Label(
-                text = foodplace,
-                font_size='24dp',
-                font_name = "FRAMD")
-            my_box1.add_widget(printplace)
-            return printplace
+            self.printplace.text = foodplace
 
+      
         # CREATING TEXT AND BUTTONS
 
         my_box1 = BoxLayout(orientation='vertical')
@@ -170,26 +166,9 @@ class ScreenTwo(Screen):
             background_normal = "",
             font_name = "Neutro-ExtraBold.otf"
         )
-        
-        my_label2 = Label(text = 
-        #generate(foodlist),
-        'example food place',
-        font_size='24dp',
-        font_name = "FRAMD")
 
-        #my_foodlist = Label( text = init)
         my_button1 = Button(
             text = "GO BACK",
-            size_hint = (0.6, 0.2),
-            pos_hint = {'x': 0.2, 'y': 0.2},
-            bold = True,
-            background_color = "579e82", 
-            background_normal = "",
-            font_name = "Neutro-ExtraBold.otf"
-        )
-
-        buttonexit = Button(
-            text = "EXIT",
             size_hint = (0.6, 0.2),
             pos_hint = {'x': 0.2, 'y': 0.2},
             bold = True,
@@ -202,8 +181,6 @@ class ScreenTwo(Screen):
 
         my_button1.bind(on_press = self.changer)
         buttongenerate.bind(on_press = lambda x: generate(foodlist))
-        #buttonexit.bind(on_press = app.stop())
-        #buttonexit.bind(on_press = App.get_running_app().stop())
 
 
         # SPACERS
@@ -213,17 +190,15 @@ class ScreenTwo(Screen):
 
 
         # ADDING WIDGETS TO THE SCREEN
-
-        my_box1.add_widget(my_label1)
-        my_box1.add_widget(buttongenerate)
-        my_box1.add_widget(my_label2)
-        my_box1.add_widget(my_button1)
-        my_box1.add_widget(spacer5)
-        my_box1.add_widget(printplace)
-
-        #my_box1.add_widget(buttonexit)
         self.add_widget(my_box1)
+        my_box1.add_widget(my_label1)
+        my_box1.add_widget(self.printplace)
+        my_box1.add_widget(buttongenerate)
         my_box1.add_widget(spacer4)
+
+        my_box1.add_widget(my_button1)
+
+        my_box1.add_widget(spacer5)
 
     # SWITCH BACK TO SCREEN ONE
 
@@ -241,6 +216,7 @@ class Foody(App):
         screen2 = ScreenTwo(name = 'screen2')
         my_screenmanager.add_widget(screen1)
         my_screenmanager.add_widget(screen2)
+        
         return my_screenmanager
 
 if __name__ == '__main__':
