@@ -1,5 +1,3 @@
-Link to demo: https://temple.zoom.us/rec/share/__fG39W3nRVPTjOLmJ493V7MxUhVaZq00YEFt1eYuvFmdh1ZYHQqzTxyC5walt1d.kwgKlRJGG0NE97Gk?startTime=1650688693000
-
 For my final project, I wanted to make a food recommendation Android app. I was thinking of having two ways to go about suggesting a food place for a user:
 
 1. User inputs their food place ideas, and a random choice is returned.
